@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<RegisterResult>, t: Throwable) {
-                    Log.d("testt", t.message.toString())
+                    Log.d("test0", t.message.toString())
                 }
             })
         }
@@ -59,21 +59,24 @@ class MainActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<LoginResult>, response: Response<LoginResult>) {
                     val user_uid = response.body()?.UID ?: return
                     if(user_uid != -1) {
+
                         Toast.makeText(applicationContext, "로그인 성공", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this@MainActivity, SecondActivity::class.java)
                         intent.putExtra("id", binding.inputID.text.toString())
                         startActivity(intent)
 
-                        Log.d("testt", user_uid.toString())
+                        Log.d("test1", user_uid.toString())
+
                     }
                     else{
+                        Log.d("test2", user_uid.toString())
                         Toast.makeText(applicationContext, "로그인 실패, 아이디 또는 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show()
                     }
 
                 }
 
                 override fun onFailure(call: Call<LoginResult>, t: Throwable) {
-                    Log.d("testt", t.message.toString())
+                    Log.d("test3", t.message.toString())
                 }
             })
         }
@@ -90,7 +93,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<ArrayList<User>>, t: Throwable) {
-                    Log.d("testt",t.message.toString())
+                    Log.d("test4",t.message.toString())
                 }
             })
         }

@@ -7,7 +7,6 @@ data class RegisterModel(
     var pw: String
 )
 
-
 data class RegisterResult(
     var message: Boolean
 )

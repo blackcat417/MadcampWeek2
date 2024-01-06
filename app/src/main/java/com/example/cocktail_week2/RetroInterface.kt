@@ -27,10 +27,10 @@ interface RetroInterface{
     fun allUser(): Call<ArrayList<User>>
 
     companion object { // static 처럼 공유객체로 사용가능함. 모든 인스턴스가 공유하는 객체로서 동작함.
-        private const val BASE_URL = "http://192.243.30.200:3500" //
+        private const val BASE_URL = "http://192.249.30.200:3800" //
 
         fun create(): RetroInterface {
-            val gson : Gson =   GsonBuilder().setLenient().create();
+            val gson : Gson = GsonBuilder().setLenient().create();
 
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)

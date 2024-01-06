@@ -8,7 +8,7 @@
         android:id="@+id/inputID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="140dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:hint="아이디 입력"/>
@@ -28,6 +28,7 @@
         android:id="@+id/registerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:text="회원가입"
         android:layout_below="@id/inputPw"/>
