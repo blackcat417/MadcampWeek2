@@ -11,6 +11,7 @@
         android:layout_marginTop="140dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
+        android:textColor="#000000"
         android:hint="아이디 입력"/>
 
     <!-- 비밀번호 입력 EditText -->
@@ -20,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
+        android:textColor="#000000"
         android:inputType="textPassword"
         android:hint="비밀번호 입력"
         android:layout_below="@id/inputID"/>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 앱의 기본 테마를 상속받는 Base 테마 정의 -->
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- 색상 설정 -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">#000000</item>
+
+        <!-- 기타 스타일 설정 -->
+        <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+    </style>
+
+    <!-- 앱의 기본 테마를 AppTheme.Base로 설정 -->
+    <style name="AppTheme" parent="AppTheme.Base">
+        <!-- 추가적인 스타일 설정 (필요한 경우) -->
+    </style>
+</resources>
