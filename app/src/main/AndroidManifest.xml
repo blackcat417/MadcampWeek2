@@ -28,6 +28,7 @@
         <activity android:name=".CockRecActivity" />
         <activity android:name=".MyCocktailActivity" />
         <activity android:name=".ListCocktailActivity" />
+        <activity android:name=".AddLogActivity" />
 
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
