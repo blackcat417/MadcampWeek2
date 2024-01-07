@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+    <!-- 로고 이미지 -->
+    <ImageView
+        android:id="@+id/imageViewLogo"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/soollog_b"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_below="@id/imageViewLogo"
+    android:padding="16dp">
+
+    <!-- 기존 스피너들이 포함된 LinearLayout 코드 생략... -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/border"
+        android:padding="16dp">
+
+        <!-- 베이스 술 선택 스피너 -->
+        <Spinner
+            android:id="@+id/spinnerBase"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:prompt="@string/base_prompt" />
+
+        <!-- 음료 선택 스피너 -->
+        <Spinner
+            android:id="@+id/spinnerBeverage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:prompt="@string/beverage_prompt" />
+
+        <!-- 기타 재료 선택 스피너 -->
+        <Spinner
+            android:id="@+id/spinnerOther"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:prompt="@string/other_prompt" />
+    </LinearLayout>
+
+    <!-- 누구와 함께하는지 선택하는 라디오 버튼 그룹 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border"
+        android:padding="16dp"
+        android:orientation="horizontal">
+
+        <RadioGroup
+            android:id="@+id/radioGroupCompany"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <!-- 연인 라디오 버튼 -->
+            <RadioButton
+                android:id="@+id/radioButtonLover"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="연인" />
+
+            <!-- 친구 라디오 버튼 -->
+            <RadioButton
+                android:id="@+id/radioButtonFriend"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="친구" />
+
+            <!-- 가족 라디오 버튼 -->
+            <RadioButton
+                android:id="@+id/radioButtonFamily"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="가족" />
+
+            <!-- 직장 라디오 버튼 -->
+            <RadioButton
+                android:id="@+id/radioButtonColleague"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="직장" />
+
+            <!-- 기타 라디오 버튼 -->
+            <RadioButton
+                android:id="@+id/radioButtonOthers"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="기타" />
+        </RadioGroup>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@drawable/border"
+        android:padding="16dp">
+    <!-- 도전 여부 선택 스위치 -->
+        <Switch
+            android:id="@+id/switchChallenge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/border"
+            android:text="도전하기" />
+    </LinearLayout>
+
+    <!-- 추천받기 버튼을 포함하는 LinearLayout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/buttonRecommend"
+            android:background="@drawable/rounded_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="추천 받기" />
+    </LinearLayout>
+</LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabGoToMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/home"
+        app:backgroundTint="@color/colorAccent"
+        app:fabSize="normal" />
+</RelativeLayout>
