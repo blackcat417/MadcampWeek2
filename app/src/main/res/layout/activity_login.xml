@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="270dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/soollog_b" />
 
     <!-- 아이디 입력 EditText -->
     <EditText
         android:id="@+id/inputID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
+        android:layout_below="@id/imageView3"
+        android:layout_marginTop="0dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:textColor="#000000"
@@ -30,8 +40,10 @@
     <Button
         android:id="@+id/registerButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_button"
+        android:elevation="4dp"
         android:layout_centerHorizontal="true"
         android:text="회원가입"
         android:layout_below="@id/inputPw"/>
@@ -42,18 +54,24 @@
     <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@id/registerButton"
+        android:background="@drawable/rounded_button"
+        android:elevation="4dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="5dp"
         android:text="로그인" />
 
     <Button
         android:id="@+id/allUserButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/rounded_button"
+        android:elevation="4dp"
         android:layout_centerHorizontal="true"
-        android:text="전체 사용자 조회"
+        android:text="User"
         android:layout_below="@id/loginButton"/>
+
 
 </RelativeLayout>
