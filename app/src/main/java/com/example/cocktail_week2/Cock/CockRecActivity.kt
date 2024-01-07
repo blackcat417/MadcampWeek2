@@ -1,5 +1,6 @@
 package com.example.cocktail_week2.Cock
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -7,7 +8,9 @@ import android.widget.Spinner
 import android.widget.Switch
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.cocktail_week2.MainActivity
 import com.example.cocktail_week2.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class CockRecActivity : AppCompatActivity() {
 
@@ -54,6 +57,20 @@ class CockRecActivity : AppCompatActivity() {
 
             // 추천 결과를 팝업(다이얼로그)으로 표시
             showRecommendationDialog(recommendedCocktail)
+        }
+        // FloatingActionButton 찾기
+        val fabGoToMain: FloatingActionButton = findViewById(R.id.fabGoToMain)
+
+        // FloatingActionButton에 클릭 리스너 설정
+        fabGoToMain.setOnClickListener {
+            // MainActivity로 이동하는 인텐트 생성
+            val intent = Intent(this, MainActivity::class.java)
+
+            // 인텐트 시작
+            startActivity(intent)
+
+            // 옵션: 현재 액티비티를 종료 (뒤로가기 스택에서 제거)
+            finish()
         }
     }
 
