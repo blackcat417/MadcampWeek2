@@ -9,6 +9,9 @@
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:queryHint="칵테일 이름 검색" />
 
     <!-- 칵테일 목록을 표시할 RecyclerView -->
@@ -16,6 +19,8 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_below="@id/searchView"
         android:scrollbars="vertical" />
 

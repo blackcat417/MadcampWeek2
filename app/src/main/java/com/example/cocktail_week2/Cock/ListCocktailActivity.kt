@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.SearchView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +28,7 @@ class ListCocktailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_cocktail)
+        supportActionBar?.hide()
 
         recyclerView = findViewById(R.id.recyclerView)
         searchView = findViewById(R.id.searchView)
@@ -35,6 +38,32 @@ class ListCocktailActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         cocktailAdapter = CocktailAdapter(cocktailList)
         recyclerView.adapter = cocktailAdapter
+
+        // 예시 칵테일 데이터 생성 및 리스트에 추가
+        cocktailList.add(
+            Cocktail(
+                name = "마티니",
+                type = "클래식",
+                description = "진과 드라이 베르무트로 만든 칵테일",
+                imageResourceId = R.drawable.cocktail1  // 적절한 이미지 리소스로 변경
+            )
+        )
+        cocktailList.add(
+            Cocktail(
+                name = "모히토",
+                type = "리프레시",
+                description = "럼, 라임, 민트 잎으로 만든 상큼한 칵테일",
+                imageResourceId = R.drawable.cocktail2  // 적절한 이미지 리소스로 변경
+            )
+        )
+        cocktailList.add(
+            Cocktail(
+                name = "마가리타",
+                type = "소금 림",
+                description = "데킬라, 라임, 오렌지 리큐어로 만든 칵테일",
+                imageResourceId = R.drawable.cocktail2  // 적절한 이미지 리소스로 변경
+            )
+        )
 
         // 검색 기능 설정
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -68,7 +97,7 @@ class ListCocktailActivity : AppCompatActivity() {
 }
 
 // 칵테일 데이터 클래스
-data class Cocktail(val name: String, val type: String, val imageResourceId: Int)
+data class Cocktail(val name: String, val type: String, val description: String, val imageResourceId: Int)
 
 // 칵테일 어댑터
 class CocktailAdapter(private var items: List<Cocktail>) : RecyclerView.Adapter<CocktailAdapter.ViewHolder>() {
@@ -96,9 +125,21 @@ class CocktailAdapter(private var items: List<Cocktail>) : RecyclerView.Adapter<
     // 뷰 홀더 클래스
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(cocktail: Cocktail) {
-            // view.findViewById로 각 뷰를 찾고 데이터 바인딩
-            // 예: view.findViewById<TextView>(R.id.textViewName).text = cocktail.name
-            // 칵테일 이미지, 이름, 종류 등을 뷰와 연결
+            // 칵테일 이미지 설정
+            val imageView: ImageView = view.findViewById(R.id.imageViewCocktail)
+            imageView.setImageResource(cocktail.imageResourceId) // 이미지 리소스 ID를 사용하여 이미지 설정
+
+            // 칵테일 이름 설정
+            val nameTextView: TextView = view.findViewById(R.id.textViewName)
+            nameTextView.text = cocktail.name  // 칵테일 이름 설정
+
+            // 칵테일 종류 설정
+            val typeTextView: TextView = view.findViewById(R.id.textViewType)
+            typeTextView.text = cocktail.type  // 칵테일 종류 설정
+
+            val descriptionTextView: TextView = view.findViewById(R.id.textViewDescription)
+            descriptionTextView.text = cocktail.description
+            // 기타 정보를 추가하고 싶다면 여기에 코드를 추가하세요.
         }
     }
 }
