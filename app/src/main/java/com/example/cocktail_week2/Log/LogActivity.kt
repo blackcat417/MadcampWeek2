@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cocktail_week2.ImageLog
 import com.example.cocktail_week2.LogEntry
+import com.example.cocktail_week2.MainActivity
 import com.example.cocktail_week2.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -29,6 +30,15 @@ class LogActivity : AppCompatActivity() {
 
             // 또는, 커스텀 다이얼로그나 프래그먼트를 사용하여 log 추가 인터페이스를 표시할 수 있습니다.
         }
+        // 새로운 FloatingActionButton 찾기
+        val fabGoToMain = findViewById<FloatingActionButton>(R.id.fabGoToMain)
+
+        // 새로운 FloatingActionButton에 클릭 리스너 설정
+        fabGoToMain.setOnClickListener {
+            // MainActivity로 돌아가는 인텐트 생성 및 시작
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
 
         // LogActivity 내 onCreate 메서드 안
         val year = intent.getStringExtra("year") ?: "Unknown"
@@ -48,6 +58,10 @@ class LogActivity : AppCompatActivity() {
 
         val imageLogs = mutableListOf<LogEntry>()
         imageLogs.add(LogEntry("2021", "01", "01", "술 이름", "술에 대한 설명", R.drawable.cocktail2)
+        )
+        imageLogs.add(LogEntry("2024", "01", "02", "칵테일", "술에 대한 설명", R.drawable.cocktail1)
+        )
+        imageLogs.add(LogEntry("2023", "05", "01", "술 이름", "술에 대한 설명", R.drawable.cocktail2)
         )
         recyclerView.adapter = LogAdapter(imageLogs)
     }
