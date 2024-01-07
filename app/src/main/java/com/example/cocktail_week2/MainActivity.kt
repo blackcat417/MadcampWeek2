@@ -3,8 +3,11 @@ package com.example.cocktail_week2
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import com.example.cocktail_week2.Cock.CockRecActivity
+import com.example.cocktail_week2.Cock.ListCocktailActivity
+import com.example.cocktail_week2.Cock.MyCocktailActivity
+import com.example.cocktail_week2.Log.LogActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

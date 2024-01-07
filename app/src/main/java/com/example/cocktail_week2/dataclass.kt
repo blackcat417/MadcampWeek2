@@ -41,3 +41,11 @@ data class ImageLog(
     val description: String,
     val timestamp: Long
 )
+data class LogEntry(
+    val year: String,
+    val month: String,
+    val day: String,
+    val drinkName: String,
+    val drinkDescription: String,
+    val imageResourceId: Int  // 이미지 리소스 ID. 실제 앱에서는 URL이나 URI가 될 수 있습니다.
+)

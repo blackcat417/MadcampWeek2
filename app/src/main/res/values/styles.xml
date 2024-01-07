@@ -10,6 +10,16 @@
         <!-- 기타 스타일 설정 -->
         <item name="android:windowBackground">@color/colorBackground</item>
         <item name="android:textColor">@color/colorTextPrimary</item>
+        <!-- 기본 DatePicker 스타일 변경 -->
+        <item name="android:datePickerStyle">@style/MyDatePickerStyle</item>
     </style>
+
+    <style name="MyDatePickerStyle" parent="android:Widget.Material.DatePicker">
+        <!-- DatePicker의 여러 속성을 여기서 수정 -->
+        <item name="android:headerBackground">@color/colorPrimary</item>
+        <item name="android:calendarTextColor">@color/colorAccent</item>
+        <!-- 추가적인 스타일 속성 -->
+    </style>
+
 
 </resources>

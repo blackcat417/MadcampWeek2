@@ -1,7 +1,9 @@
-package com.example.cocktail_week2
+package com.example.cocktail_week2.Login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.cocktail_week2.Adapter
+import com.example.cocktail_week2.User
 import com.example.cocktail_week2.databinding.ActivityAllUserBinding
 
 class AllUserActivity : AppCompatActivity() {

@@ -1,17 +1,11 @@
-package com.example.cocktail_week2
+package com.example.cocktail_week2.Login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
-import android.util.Log
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
+import com.example.cocktail_week2.MainActivity
 import com.example.cocktail_week2.databinding.ActivityLoginBinding
-import com.example.cocktail_week2.databinding.ActivityMainBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
