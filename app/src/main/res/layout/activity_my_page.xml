@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/userIdTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40dp"
+        android:text="User ID"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAddFriend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/add"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_anchor="@id/userIdTextView"
+        app:layout_anchorGravity="end|top"/>
+
+    <!-- 프로필 수정 플로팅 버튼 -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnEditProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/write"
+        app:backgroundTint="@color/colorAccent"
+        app:layout_anchor="@id/btnAddFriend"
+        app:layout_anchorGravity="end|top"/>
+
+    <!-- 프로필 사진 -->
+    <ImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/cocktail1"
+        android:layout_below="@id/userIdTextView"
+        android:layout_centerHorizontal="true"/>
+
+    <!-- 레이더 다이어그램 (여기에 라이브러리 뷰나 커스텀 뷰를 추가해야 함) -->
+    <View
+        android:id="@+id/radarChartView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@id/profileImageView"
+        android:background="#CCCCCC"/>  <!-- 임시 배경 -->
+
+    <!-- 추가적인 사용자 정보 및 기능 -->
+
+</RelativeLayout>

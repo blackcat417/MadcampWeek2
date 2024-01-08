@@ -57,3 +57,7 @@ data class Cocktail(
     val strIngredient1: String,
     val strDrinkThumb: String
 )
+
+data class RecCocktails(
+    val recDrink: String,
+)
