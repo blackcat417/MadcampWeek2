@@ -29,6 +29,7 @@
         <activity android:name=".Cock.MyCocktailActivity" />
         <activity android:name=".Cock.ListCocktailActivity" />
         <activity android:name=".Log.AddLogActivity" />
+        <activity android:name=".MyPage.MyPageActivity"/>
 
     </application>
     <uses-permission android:name="android.permission.INTERNET" />

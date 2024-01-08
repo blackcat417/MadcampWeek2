@@ -3,11 +3,13 @@ package com.example.cocktail_week2
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cocktail_week2.Cock.CockRecActivity
 import com.example.cocktail_week2.Cock.ListCocktailActivity
 import com.example.cocktail_week2.Cock.MyCocktailActivity
 import com.example.cocktail_week2.Log.LogActivity
+import com.example.cocktail_week2.MyPage.MyPageActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +39,11 @@ class MainActivity : AppCompatActivity() {
         // 네 번째 이미지 버튼
         findViewById<Button>(R.id.Button4).setOnClickListener {
             val intent = Intent(this, ListCocktailActivity::class.java)
+            startActivity(intent)
+        }
+        // 로고 이미지 클릭 리스너 설정
+        findViewById<ImageView>(R.id.imageView2).setOnClickListener {
+            val intent = Intent(this, MyPageActivity::class.java)
             startActivity(intent)
         }
     }

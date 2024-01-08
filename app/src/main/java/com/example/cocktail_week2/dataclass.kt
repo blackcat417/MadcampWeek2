@@ -61,3 +61,9 @@ data class Cocktail(
 data class RecCocktails(
     val recDrink: String,
 )
+
+data class RecommendModel(
+    val base: String,
+    val beverage: String,
+    val other: String
+)

@@ -2,6 +2,7 @@ package com.example.cocktail_week2.Cock
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
@@ -13,7 +14,9 @@ import com.example.cocktail_week2.Cocktail
 import com.example.cocktail_week2.MainActivity
 import com.example.cocktail_week2.R
 import com.example.cocktail_week2.ApiService
-import com.example.cocktail_week2.RetroInterface
+import com.example.cocktail_week2.LoginModel
+import com.example.cocktail_week2.RecCocktails
+import com.example.cocktail_week2.RecommendModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
 import retrofit2.Callback
@@ -45,9 +48,9 @@ class CockRecActivity : AppCompatActivity() {
         // 실제 앱에서는 데이터베이스 또는 API에서 가져오거나 정적 배열을 사용할 수 있습니다.
 
         // 스피너 데이터 설정 (실제 앱에서는 서버 또는 로컬 데이터를 사용하세요)
-        val bases = arrayOf("Vodka", "Gin", "Rum", "Whisky", "Wine", "Tequila", "Kalua", "Brandy")
-        val beverages = arrayOf("Juice", "Soft Drink", "Milk", "Coffee", "Water")
-        val others = arrayOf("Egg", "Lime", "Lemon", "Cream", "Sugar", "Salt", "Olive")
+        val bases = arrayOf(" ", "Vodka", "Gin", "Rum", "Whisky", "Wine", "Tequila", "Kalua", "Brandy")
+        val beverages = arrayOf(" ","Juice", "Soft Drink", "Milk", "Coffee", "Water")
+        val others = arrayOf(" ","Egg", "Lime", "Lemon", "Cream", "Sugar", "Salt", "Olive")
 
         spinnerBase.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, bases)
@@ -66,7 +69,7 @@ class CockRecActivity : AppCompatActivity() {
             // 서버에서 칵테일 추천 받기
             getCocktailRecommendation(base, beverage, other, challenge) { recommendedCocktail ->
                 recommendedCocktail?.let { showRecommendationDialog(it) }
-                    ?: Toast.makeText(this, "추천 칵테일을 찾을 수 없습니다.", Toast.LENGTH_LONG).show()
+                    ?: Toast.makeText(this, "${base}, ${beverage}, ${other},추천 칵테일을 찾을 수 없습니다.", Toast.LENGTH_LONG).show()
                 }
             }
         // FloatingActionButton 설정
@@ -81,30 +84,56 @@ class CockRecActivity : AppCompatActivity() {
         beverage: String,
         other: String,
         challenge: Boolean,
-        onResult:(String?) -> Unit
-    ){
-        apiService.getCocktails(base, beverage, other)
-            .enqueue(object : Callback<List<Cocktail>> {
-                override fun onResponse(
-                    call: Call<List<Cocktail>>,
-                    response: Response<List<Cocktail>>
-                ) {
-                    if (response.isSuccessful) {
+        onResult: (String?) -> Unit
+    ) {
+
+        val SelectedRec = RecommendModel(base, beverage, other)
+
+        if (challenge) {
+
+            // 도전 모드: 무작위로 칵테일 추천
+            apiService.getCocktails(base, beverage, other)
+                .enqueue(object : Callback<List<Cocktail>> {
+                    override fun onResponse(
+                        call: Call<List<Cocktail>>,
+                        response: Response<List<Cocktail>>
+                    ) {
                         val filteredCocktails = response.body() ?: emptyList()
                         val recommendedCocktail =
-                            if (challenge && filteredCocktails.isNotEmpty()) filteredCocktails.random().strDrink
-                            else filteredCocktails.firstOrNull()?.strDrink
+                            if (filteredCocktails.isNotEmpty()) filteredCocktails.random().strDrink
+                            else null // Return null if the list is empty
                         onResult(recommendedCocktail)
-                    } else {
+                        }
+
+                    override fun onFailure(call: Call<List<Cocktail>>, t: Throwable) {
+                        // 네트워크 에러 처리
                         onResult(null)
                     }
-                }
-                override fun onFailure(call: Call<List<Cocktail>>, t: Throwable) {
-                    // 네트워크 에러 처리
-                    onResult(null)
-                }
-            })
+                })
+        } else {
+
+            // 일반 모드: 첫 번째 칵테일 추천
+            apiService.getRecommends(SelectedRec)
+                .enqueue(object : Callback<List<RecCocktails>> {
+                    override fun onResponse(
+                        call: Call<List<RecCocktails>>,
+                        response: Response<List<RecCocktails>>
+                    ) {
+                        val filteredCocktails = response.body() ?: emptyList()
+                        val recommendedCocktail =
+                            if (filteredCocktails.isNotEmpty()) filteredCocktails.first().recDrink
+                            else null // Return null if the list is empty
+                        onResult(recommendedCocktail)
+                    }
+
+                    override fun onFailure(call: Call<List<RecCocktails>>, t: Throwable) {
+                        // 네트워크 에러 처리
+                        onResult(null)
+                    }
+                })
+        }
     }
+
 
     private fun showRecommendationDialog(recommendedCocktail: String) {
         AlertDialog.Builder(this).apply {
@@ -114,4 +143,3 @@ class CockRecActivity : AppCompatActivity() {
         }.show()
     }
 }
-
