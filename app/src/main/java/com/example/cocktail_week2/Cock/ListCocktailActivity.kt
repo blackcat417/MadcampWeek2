@@ -62,14 +62,14 @@ class ListCocktailActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val apiResponse = response.body() ?: return
                     val cocktails = apiResponse.map {
-                            Cocktail(
-                                strDrink = it.strDrink,
-                                strCategory = it.strCategory,
-                                strIngredient1 = it.strIngredient1,
-                                strDrinkThumb = it.strDrinkThumb // URL 사용
-                            )
-                        } ?: emptyList()
-                        cocktailAdapter.updateList(cocktails)
+                        Cocktail(
+                            strDrink = it.strDrink,
+                            strCategory = it.strCategory,
+                            strIngredient1 = it.strIngredient1,
+                            strDrinkThumb = it.strDrinkThumb // URL 사용
+                        )
+                    } ?: emptyList()
+                    cocktailAdapter.updateList(cocktails)
                 } else {
                     // Handle error
                 }

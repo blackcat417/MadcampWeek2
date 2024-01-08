@@ -19,7 +19,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_below="@id/imageViewLogo"
-    android:padding="16dp">
+    android:padding="1dp">
 
     <!-- 기존 스피너들이 포함된 LinearLayout 코드 생략... -->
 
@@ -127,6 +127,13 @@
             android:layout_marginLeft="16dp"
             android:background="@drawable/border"
             android:text="도전하기" />
+        <Switch
+            android:id="@+id/alchoholYN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/border"
+            android:text="Alchohol알코올" />
     </LinearLayout>
 
     <!-- 추천받기 버튼을 포함하는 LinearLayout -->
