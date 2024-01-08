@@ -47,7 +47,7 @@
 
     <!-- 레이더 다이어그램 (여기에 라이브러리 뷰나 커스텀 뷰를 추가해야 함) -->
     <View
-        android:id="@+id/radarChartView"
+        android:id="@+id/radarChart"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
         android:layout_height="300dp"

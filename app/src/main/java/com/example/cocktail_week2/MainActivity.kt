@@ -9,7 +9,6 @@ import com.example.cocktail_week2.Cock.CockRecActivity
 import com.example.cocktail_week2.Cock.ListCocktailActivity
 import com.example.cocktail_week2.Cock.MyCocktailActivity
 import com.example.cocktail_week2.Log.LogActivity
-import com.example.cocktail_week2.MyPage.MyPageActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,9 +41,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         // 로고 이미지 클릭 리스너 설정
-        findViewById<ImageView>(R.id.imageView2).setOnClickListener {
+        /*findViewById<ImageView>(R.id.imageView2).setOnClickListener {
             val intent = Intent(this, MyPageActivity::class.java)
             startActivity(intent)
-        }
+        }*/
     }
 }
