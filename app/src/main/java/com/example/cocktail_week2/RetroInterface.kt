@@ -9,6 +9,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface RetroInterface{
     @POST("/register")
@@ -23,11 +24,11 @@ interface RetroInterface{
         @Body jsonparams: LoginModel
     ) : Call<LoginResult>
 
-    @GET("/users_info")
-    fun allUser(): Call<ArrayList<User>>
+    @GET("/cocktails")
+    fun getCocktails( ): Call<List<Cocktail>>
 
     companion object { // static 처럼 공유객체로 사용가능함. 모든 인스턴스가 공유하는 객체로서 동작함.
-        private const val BASE_URL = "http://143.248.192.4:3800" //
+        private const val BASE_URL = "http://192.249.30.207:3800" //
 
         fun create(): RetroInterface {
             val gson : Gson = GsonBuilder().setLenient().create();
@@ -39,5 +40,6 @@ interface RetroInterface{
                 .build()
                 .create(RetroInterface::class.java)
         }
+
     }
 }

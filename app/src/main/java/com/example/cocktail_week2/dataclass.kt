@@ -51,8 +51,8 @@ data class LogEntry(
 )
 // 칵테일 데이터 클래스
 data class Cocktail(
-    val name: String,
-    val type: String,
-    val description: String,
-    val imageResourceId: Int
+    val strDrink: String,
+    val strCategory: String,
+    val strIngredient1: String,
+    val strDrinkThumb: String
 )
