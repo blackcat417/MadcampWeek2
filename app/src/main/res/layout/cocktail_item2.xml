@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <!-- 칵테일 이미지 -->
+        <ImageView
+            android:id="@+id/imageViewCocktail"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/cocktail2"
+            android:scaleType="centerCrop" />
+
+        <!-- 칵테일 이름 -->
+        <TextView
+            android:id="@+id/textViewName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="칵테일 이름"
+            android:textStyle="bold" />
+
+        <!-- 칵테일 종류 -->
+        <TextView
+            android:id="@+id/textViewType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="칵테일 종류" />
+
+        <!-- 칵테일 설명 -->
+        <TextView
+            android:id="@+id/textViewDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="칵테일 설명"
+            android:textColor="#666666" />
+
+        <!-- 기타 정보 추가 가능 -->
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
