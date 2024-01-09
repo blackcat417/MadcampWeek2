@@ -1,81 +1,50 @@
 package com.example.cocktail_week2
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.content.Intent
-import android.util.Log
-import android.widget.Toast
-import com.example.cocktail_week2.databinding.ActivityMainBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import com.example.cocktail_week2.Cock.CockRecActivity
+import com.example.cocktail_week2.Cock.ListCocktailActivity
+import com.example.cocktail_week2.Cock.MyCocktailActivity
+import com.example.cocktail_week2.Log.LogActivity
+
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
-    val api = RetroInterface.create()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
 
-        binding.registerButton.setOnClickListener {
-            binding.apply {
-                val id = inputID.text.toString()
-                val pw = inputPw.text.toString()
+        supportActionBar?.hide()
 
-                if(id == "" || pw == "") {
-                    Toast.makeText(applicationContext, "입력하지 않은 정보가 있습니다.", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-            }
-            val newUser = RegisterModel(binding.inputID.text.toString(), binding.inputPw.text.toString())
-            api.register(newUser).enqueue(object: retrofit2.Callback<RegisterResult>{
-                override fun onResponse(call: Call<RegisterResult>, response: Response<RegisterResult>) {
-                    val result = response.body()?.message ?: return
-                    if(result)
-                        Toast.makeText(applicationContext, "회원가입 성공", Toast.LENGTH_SHORT).show()
-                    else
-                        Toast.makeText(applicationContext, "회원가입 실패, 이미 존재하는 아이디 입니다.", Toast.LENGTH_SHORT).show()
-                }
-
-                override fun onFailure(call: Call<RegisterResult>, t: Throwable) {
-                    Log.d("test0", t.message.toString())
-                }
-            })
-        }
-        binding.loginButton.setOnClickListener {
-            binding.apply {
-                val id = inputID.text.toString()
-                val pw = inputPw.text.toString()
-
-                if(id == "" || pw == "") {
-                    Toast.makeText(applicationContext, "입력하지 않은 정보가 있습니다.", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-            }
-            // 서버 요청 없이 로그인 성공으로 가정하고 LogActivity로 바로 이동
-            Toast.makeText(applicationContext, "로그인 성공", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this@MainActivity, LogActivity::class.java)
-            intent.putExtra("id", binding.inputID.text.toString())
+        // 첫 번째 이미지 버튼
+        findViewById<Button>(R.id.Button1).setOnClickListener {
+            val intent = Intent(this, LogActivity::class.java)
             startActivity(intent)
         }
-        binding.allUserButton.setOnClickListener {
-            api.allUser().enqueue(object:Callback<ArrayList<User>>{
-                override fun onResponse(
-                    call: Call<ArrayList<User>>,
-                    response: Response<ArrayList<User>>
-                ) {
-                    val userList = response.body() ?: return
-                    val intent = Intent(this@MainActivity, AllUserActivity::class.java)
-                    intent.putExtra("userList", userList)
-                    startActivity(intent)
-                }
 
-                override fun onFailure(call: Call<ArrayList<User>>, t: Throwable) {
-                    Log.d("test4",t.message.toString())
-                }
-            })
+        // 두 번째 이미지 버튼
+        findViewById<Button>(R.id.Button2).setOnClickListener {
+            val intent = Intent(this, CockRecActivity::class.java)
+            startActivity(intent)
         }
 
+        // 세 번째 이미지 버튼
+        findViewById<Button>(R.id.Button3).setOnClickListener {
+            val intent = Intent(this, MyCocktailActivity::class.java)
+            startActivity(intent)
+        }
+
+        // 네 번째 이미지 버튼
+        findViewById<Button>(R.id.Button4).setOnClickListener {
+            val intent = Intent(this, ListCocktailActivity::class.java)
+            startActivity(intent)
+        }
+
+        findViewById<ImageView>(R.id.imageView2).setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

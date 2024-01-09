@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+    <color name="black">#000000</color>
     <color name="white">#FFFFFFFF</color>
+
+        <!-- 기본 색상 -->
+        <color name="colorPrimary">#222245</color> <!-- 어두운 남색 -->
+        <color name="colorPrimaryDark">#090910</color> <!-- 더 어두운 남색 -->
+        <color name="colorAccent">#FFFFFF</color> <!-- 악센트 색상 -->
+
+        <!-- 텍스트 색상 -->
+        <color name="colorTextPrimary">#494949</color> <!-- 밝은 흰색 -->
+        <color name="colorTextSecondary">#272727</color> <!-- 회색 -->
+
+        <!-- 기타 색상 -->
+        <color name="colorBackground">#FFFFFF</color> <!-- 거의 검은색 -->
+        <color name="colorSurface">#515151</color> <!-- 어두운 회색 -->
+
 </resources>

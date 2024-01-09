@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Cocktail_Week2</string>
+    <string name="app_name">SooLLOG</string>
+    <!-- 베이스 술 선택 스피너의 프롬프트 문자열 -->
+    <string name="base_prompt">베이스 술을 선택하세요</string>
+    <string name="beverage_prompt">음료를 선택하세요</string>
+    <string name="other_prompt">기타 재료를 선택하세요</string>
 </resources>

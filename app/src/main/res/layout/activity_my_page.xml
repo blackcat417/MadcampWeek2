@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/userIdTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:text="User ID"
+        android:textSize="40dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAddFriend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:layout_toLeftOf="@+id/btnEditProfile"
+        android:src="@drawable/addfriends"
+        app:backgroundTint="@color/colorPrimary" />
+
+    <!-- 프로필 수정 플로팅 버튼 -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnEditProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/write"
+        app:backgroundTint="@color/colorAccent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"/>
+
+    <!-- 프로필 사진 -->
+    <ImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/cocktail1"
+        android:layout_below="@id/userIdTextView"
+        android:layout_centerHorizontal="true"/>
+
+    <!-- 레이더 다이어그램 (여기에 라이브러리 뷰나 커스텀 뷰를 추가해야 함) -->
+    <View
+        android:id="@+id/radarChart"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="300dp"
+        android:layout_below="@id/profileImageView"
+        android:background="#CCCCCC"/>  <!-- 임시 배경 -->
+
+    <!-- 추가적인 사용자 정보 및 기능 -->
+
+</RelativeLayout>

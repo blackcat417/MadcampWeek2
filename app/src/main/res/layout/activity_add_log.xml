@@ -1,0 +1,79 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- 이미지를 중앙에 위치시키는 LinearLayout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">  <!-- 가로 방향 중앙 정렬 -->
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="170dp"
+            android:layout_height="192dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/soollog_b" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">  <!-- 가로 정렬 -->
+
+    <!-- 연도 선택 스피너 -->
+    <Spinner
+        android:id="@+id/spinnerYear"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+
+    <!-- 월 선택 스피너 -->
+    <Spinner
+        android:id="@+id/spinnerMonth"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+
+    <!-- 일 선택 스피너 -->
+    <Spinner
+        android:id="@+id/spinnerDay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+    </LinearLayout>
+
+
+    <EditText
+    android:id="@+id/editTextDrinkName"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="술의 이름"
+    android:inputType="text"/>
+
+    <EditText
+    android:id="@+id/editTextDrinkDescription"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="술에 대한 설명"
+    android:inputType="textImeMultiLine"/>
+
+    <!-- log를 추가하는 Button을 포함하는 LinearLayout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">  <!-- 가로 방향 중앙 정렬 -->
+
+        <Button
+            android:id="@+id/buttonAddLog"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:background="@drawable/rounded_button"
+            android:text="log 추가하기" />
+
+    </LinearLayout>
+
+</LinearLayout>
