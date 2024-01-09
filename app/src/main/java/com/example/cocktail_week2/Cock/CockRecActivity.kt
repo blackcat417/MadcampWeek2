@@ -119,21 +119,31 @@ class CockRecActivity : AppCompatActivity() {
                         call: Call<List<RecCocktails>>,
                         response: Response<List<RecCocktails>>
                     ) {
-                        val filteredCocktails = response.body() ?: emptyList()
-                        val recommendedCocktail =
-                            if (filteredCocktails.isNotEmpty()) filteredCocktails.first().recDrink
-                            else null // Return null if the list is empty
-                        onResult(recommendedCocktail)
+                        if (response.isSuccessful) {
+                            // 성공적인 응답 처리
+                            val filteredCocktails = response.body() ?: emptyList()
+                            val recommendedCocktail =
+                                if (filteredCocktails.isNotEmpty()) filteredCocktails.first().recDrink
+                                else null // 리스트가 비어있을 경우 null 반환
+                            onResult(recommendedCocktail)
+                        } else {
+                            // 실패한 응답 처리
+                            onResult(null)
+                            // 로그 또는 사용자에게 오류 메시지 표시
+                            Log.e("API Error", "Response Code: " + response.code())
+                        }
                     }
 
                     override fun onFailure(call: Call<List<RecCocktails>>, t: Throwable) {
                         // 네트워크 에러 처리
                         onResult(null)
+                        // 로그 또는 사용자에게 오류 메시지 표시
+                        Log.e("API Error", "Network Error", t)
                     }
+
                 })
         }
     }
-
 
     private fun showRecommendationDialog(recommendedCocktail: String) {
         AlertDialog.Builder(this).apply {

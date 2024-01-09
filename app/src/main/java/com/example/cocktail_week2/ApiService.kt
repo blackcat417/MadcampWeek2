@@ -15,9 +15,7 @@ interface ApiService {
         @Query("other") other: String
     ): Call<List<Cocktail>>
 
-    @POST("recommend")
-    fun getRecommends(
-        @Body jsonparams: RecommendModel
-    ): Call<List<RecCocktails>>
+    @POST("/recommend")
+    fun getRecommends(@Body request: RecommendModel): Call<List<RecCocktails>>
 
 }
