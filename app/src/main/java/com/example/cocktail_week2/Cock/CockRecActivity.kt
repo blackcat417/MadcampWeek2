@@ -3,22 +3,27 @@ package com.example.cocktail_week2.Cock
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.Switch
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.cocktail_week2.Cocktail
 import com.example.cocktail_week2.MainActivity
 import com.example.cocktail_week2.R
 import com.example.cocktail_week2.ApiService
-import com.example.cocktail_week2.Log.LogActivity
+import com.example.cocktail_week2.LogEntry
 import com.example.cocktail_week2.LoginModel
 import com.example.cocktail_week2.RecCocktails
 import com.example.cocktail_week2.RecommendModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,20 +32,53 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class CockRecActivity : AppCompatActivity() {
     private lateinit var apiService: ApiService
-    private fun showRecommendationDialog(drinkName: String, ingredient: String) {
+    private fun showRecommendationDialog(drinkName: String, imageUrl:String, ingredient: String, instruction:String) {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_cocktail, null)
+        val imageView = dialogView.findViewById<ImageView>(R.id.imageViewCocktail)
+        val nameView = dialogView.findViewById<TextView>(R.id.textViewCocktailName)
+        val ingredientView = dialogView.findViewById<TextView>(R.id.textViewCocktailIngredient)
+        val instructionView = dialogView.findViewById<TextView>(R.id.textViewCocktailInstruction)
+
+        Glide.with(this)
+            .load(imageUrl)
+            .into(imageView)
+
+        nameView.text = drinkName
+        ingredientView.text = ingredient
+        instructionView.text = instruction
+
         AlertDialog.Builder(this).apply {
-            setTitle("추천 칵테일")
-            setMessage("이름: $drinkName\n재료: $ingredient")
+            setView(dialogView)
             setPositiveButton("확인", null)
-            setNeutralButton("MyLog에 추가하기") { dialog, which ->
-                // MyLog 화면으로 이동하면서 칵테일 정보 전달
-                val intent = Intent(this@CockRecActivity, LogActivity::class.java)
-                intent.putExtra("DRINK_NAME", drinkName)
-                intent.putExtra("INGREDIENT", ingredient)
-                startActivity(intent)
+            setNeutralButton("MyLog에 추가하기") { _,_ ->
+
+                val newLog = LogEntry(drinkName, imageUrl, ingredient, instruction)
+                apiService.addLogs(newLog).enqueue(object : retrofit2.Callback<ResponseBody> {
+
+                    override fun onResponse(
+                        call: Call<ResponseBody>,
+                        response: Response<ResponseBody>
+                    ) {
+                        if (response.isSuccessful) {
+                            val responseString = response.body()?.string() ?:""
+                            // 성공적인 서버 응답 처리
+                            Toast.makeText(applicationContext, "로그에 추가되었습니다: $responseString", Toast.LENGTH_SHORT).show()
+                        } else {
+                            // 서버에서 실패한 응답 처리
+                            Toast.makeText(applicationContext, "오류 발생: ${response.errorBody()?.string()}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                        // 네트워크 오류 처리
+                        Toast.makeText(applicationContext, "네트워크 오류: ${t.message}", Toast.LENGTH_SHORT).show()
+                    }
+                })
+
             }
         }.show()
     }
+
     private fun getCocktailRecommendation(
         base: String,
         beverage: String,
@@ -65,14 +103,16 @@ class CockRecActivity : AppCompatActivity() {
                     val responseBody = response.body()
                     val firstCocktail = responseBody?.firstOrNull()
                     val drinkName = firstCocktail?.strDrink ?: "Unknown"
+                    val imageUrl = firstCocktail?.strDrinkThumb ?: "Unknown"
                     val ingredient = firstCocktail?.strIngredient1 ?: "Unknown"
+                    val instruction = firstCocktail?.strInstructions ?: "Unknown"
 
                     if(responseBody.isNullOrEmpty()){
                         Log.d("CocktailRecommendation","Response body is empty or null")
                         onResult(null)
                     }
                     else{
-                        showRecommendationDialog(drinkName, ingredient)
+                        showRecommendationDialog(drinkName, imageUrl, ingredient, instruction)
                     }
 
                 } else {

@@ -42,12 +42,10 @@ data class ImageLog(
     val timestamp: Long
 )
 data class LogEntry(
-    val year: String,
-    val month: String,
-    val day: String,
     val drinkName: String,
-    val drinkDescription: String,
-    val imageResourceId: Int  // 이미지 리소스 ID. 실제 앱에서는 URL이나 URI가 될 수 있습니다.
+    val imageUrl: String,
+    val ingredient: String,
+    val instruction: String
 )
 
 // 칵테일 데이터 클래스
@@ -60,7 +58,9 @@ data class Cocktail(
 
 data class RecCocktails(
     val strDrink: String,
-    val strIngredient1: String
+    val strDrinkThumb: String,
+    val strIngredient1: String,
+    val strInstructions: String
 )
 
 data class RecommendModel(
@@ -68,4 +68,11 @@ data class RecommendModel(
     val beverage: String,
     val other: String,
     val challenge: Boolean
+)
+
+data class LogCocktails(
+    val logName: String,
+    val logImg: String,
+    val logIngredient: String,
+    val logRecipe: String
 )

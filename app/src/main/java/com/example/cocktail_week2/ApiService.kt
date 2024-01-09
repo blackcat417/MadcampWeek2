@@ -1,6 +1,9 @@
 package com.example.cocktail_week2
 
+import okhttp3.ResponseBody
 import retrofit2.Call
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -18,4 +21,9 @@ interface ApiService {
     @POST("recommend")
     fun getRecommends(@Body request: RecommendModel): Call<List<RecCocktails>>
 
+    @POST("moveToLog")
+    fun addLogs(@Body request: LogEntry): Call<ResponseBody>
+
+    @GET("logs")
+    fun logCocktails(): Call<List<LogCocktails>>
 }

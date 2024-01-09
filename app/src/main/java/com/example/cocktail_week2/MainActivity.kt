@@ -10,6 +10,7 @@ import com.example.cocktail_week2.Cock.ListCocktailActivity
 import com.example.cocktail_week2.Cock.MyCocktailActivity
 import com.example.cocktail_week2.Log.LogActivity
 
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/imageViewCocktail"
+        android:layout_width="match_parent"
+        android:src="@drawable/cocktail1"
+        android:layout_height="200dp" />
+
+    <!-- 추천받은 칵테일 정보 표시 -->
+    <TextView
+        android:id="@+id/textViewCocktailName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="추천 칵테일 정보가 여기에 표시됩니다."
+        android:textSize="18sp"/>
+    <TextView
+        android:id="@+id/textViewCocktailIngredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="추천 칵테일 정보가 여기에 표시됩니다."
+        android:textSize="18sp"/>
+    <TextView
+        android:id="@+id/textViewCocktailInstruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="추천 칵테일 정보가 여기에 표시됩니다."
+        android:textSize="18sp"/>
+
+</LinearLayout>

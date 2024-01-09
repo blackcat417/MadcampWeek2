@@ -2,61 +2,133 @@ package com.example.cocktail_week2.Log
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cocktail_week2.ImageLog
+import com.example.cocktail_week2.ApiService
+import com.example.cocktail_week2.Log.LogAdapter
 import com.example.cocktail_week2.LogEntry
 import com.example.cocktail_week2.MainActivity
 import com.example.cocktail_week2.R
+import com.example.cocktail_week2.LogCocktails
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class LogActivity : AppCompatActivity() {
+    private lateinit var logAdapter: LogAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var searchView: SearchView
+    private lateinit var fabGoToMain: FloatingActionButton
+
+    val retrofit = Retrofit.Builder()
+        .baseUrl("http://192.249.30.207:3800")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    private val apiService = retrofit.create(ApiService::class.java)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_log)
+        setContentView(R.layout.activity_list_cocktail)
         supportActionBar?.hide()
 
-        // 새로운 FloatingActionButton 찾기
-        val fabGoToMain = findViewById<FloatingActionButton>(R.id.fabGoToMain)
+        recyclerView = findViewById(R.id.recyclerView)
+        searchView = findViewById(R.id.searchView)
+        fabGoToMain = findViewById(R.id.fabGoToMain)
 
-        // 새로운 FloatingActionButton에 클릭 리스너 설정
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        logAdapter = LogAdapter(listOf())
+        recyclerView.adapter = logAdapter
+
         fabGoToMain.setOnClickListener {
-            // MainActivity로 돌아가는 인텐트 생성 및 시작
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
-
-        // LogActivity 내 onCreate 메서드 안
-        val year = intent.getStringExtra("year") ?: "Unknown"
-        val month = intent.getStringExtra("month") ?: "Unknown"
-        val day = intent.getStringExtra("day") ?: "Unknown"
-        val drinkName = intent.getStringExtra("drinkName") ?: "Unknown"
-        val drinkDescription = intent.getStringExtra("drinkDescription") ?: "Unknown"
-        val imageResourceId = intent.getIntExtra("imageResourceId", 0) // 기본값으로 0 설정
-
-        // 로그 목록에 새 로그 추가
-        val newLog = LogEntry(year, month, day, drinkName, drinkDescription, imageResourceId)
-        val logs = mutableListOf<LogEntry>()
-        logs.add(newLog)
-
-        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = GridLayoutManager(this, 1)  // 2개의 컬럼으로 표시
-
-        val imageLogs = mutableListOf<LogEntry>()
-        imageLogs.add(LogEntry("2021", "01", "01", "술 이름", "술에 대한 설명", R.drawable.cocktail2)
-        )
-        imageLogs.add(LogEntry("2024", "01", "02", "칵테일", "술에 대한 설명", R.drawable.cocktail1)
-        )
-        imageLogs.add(LogEntry("2023", "05", "01", "술 이름", "술에 대한 설명", R.drawable.cocktail2)
-        )
-        recyclerView.adapter = LogAdapter(imageLogs)
+        loadLogs()
     }
 
-    // 이미지 로그 데이터를 로드하는 함수 (여기서는 예시 데이터를 생성)
-    private fun loadImageLogs(): List<ImageLog> {
-        // 실제 앱에서는 데이터베이스 또는 서버에서 데이터를 로드해야 합니다.
-        return listOf(/* 이미지 로그 데이터 */)
+    private fun loadLogs() {
+        apiService.logCocktails().enqueue(object : Callback<List<LogCocktails>> {
+            override fun onResponse(
+                call: Call<List<LogCocktails>>,
+                response: Response<List<LogCocktails>>
+            ) {
+                if (response.isSuccessful) {
+                    val apiResponse = response.body() ?: return
+                    val logCocktails = apiResponse.map {
+                        LogCocktails(
+                            logName = it.logName,
+                            logIngredient = it.logIngredient,
+                            logRecipe = it.logRecipe,
+                            logImg = it.logImg // URL 사용
+                        )
+                    } ?: emptyList()
+                    logAdapter.updateList(logCocktails)
+                } else {
+                    // Handle error
+                }
+            }
+
+            override fun onFailure(call: Call<List<LogCocktails>>, t: Throwable) {
+                // Handle error
+            }
+        })
     }
+
 }
+
+//        val imageViewCocktail: ImageView = findViewById(R.id.logoImageView)
+//        Glide.with(this)
+//            .load(imageUrl)
+//            .into(imageViewCocktail)
+//        // 로그 목록에 새 로그 추가
+//
+//        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
+//        recyclerView.layoutManager = LinearLayoutManager(this)  // 2개의 컬럼으로 표시
+//
+//        val imageLogs = mutableListOf<LogEntry>()
+//        // 로그 목록 불러오기
+//        loadImageLogs(object : LogLoadListener {
+//            override fun onLogsLoaded(logs: List<LogEntry>) {
+//                imageLogs.addAll(logs)
+//                // 새로운 항목 추가
+//                val newLog = LogEntry(drinkName, imageUrl, ingredient, instruction)
+//                imageLogs.add(newLog)
+//
+//                // RecyclerView 업데이트
+//                updateRecyclerView(imageLogs)
+//            }
+//        })
+//    }
+//
+//    // 이미지 로그 데이터를 로드하는 함수
+//    private fun loadImageLogs(listener: LogLoadListener) {
+//        apiService.getCocktailLogs().enqueue(object : Callback<List<LogEntry>> {
+//            override fun onResponse(
+//                call: Call<List<LogEntry>>,
+//                response: Response<List<LogEntry>>
+//            ) {
+//                if (response.isSuccessful) {
+//                    val logs = response.body() ?: emptyList()
+//                    listener.onLogsLoaded(logs)
+//                } else {
+//                    Log.e("LogActivity", "Error: ${response.errorBody()?.string()}")
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<List<LogEntry>>, t: Throwable) {
+//                Log.e("LogActivity", "Network error: ${t.message}")
+//            }
+//        })
+//    }
+//    interface LogLoadListener {
+//        fun onLogsLoaded(logs: List<LogEntry>)
+//    }
+//
+//}
