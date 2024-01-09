@@ -14,6 +14,7 @@ import com.example.cocktail_week2.Cocktail
 import com.example.cocktail_week2.MainActivity
 import com.example.cocktail_week2.R
 import com.example.cocktail_week2.ApiService
+import com.example.cocktail_week2.Log.LogActivity
 import com.example.cocktail_week2.LoginModel
 import com.example.cocktail_week2.RecCocktails
 import com.example.cocktail_week2.RecommendModel
@@ -31,9 +32,15 @@ class CockRecActivity : AppCompatActivity() {
             setTitle("추천 칵테일")
             setMessage("이름: $drinkName\n재료: $ingredient")
             setPositiveButton("확인", null)
+            setNeutralButton("MyLog에 추가하기") { dialog, which ->
+                // MyLog 화면으로 이동하면서 칵테일 정보 전달
+                val intent = Intent(this@CockRecActivity, LogActivity::class.java)
+                intent.putExtra("DRINK_NAME", drinkName)
+                intent.putExtra("INGREDIENT", ingredient)
+                startActivity(intent)
+            }
         }.show()
     }
-
     private fun getCocktailRecommendation(
         base: String,
         beverage: String,
@@ -45,8 +52,6 @@ class CockRecActivity : AppCompatActivity() {
         val safeBase = if (base.isBlank()) "%" else base
         val safeBeverage = if (beverage.isBlank()) "%" else beverage
         val safeOther = if (other.isBlank()) "%" else other
-
-
 
         val SelectedRec = RecommendModel(safeBase, safeBeverage, safeOther, challenge)
 
@@ -82,7 +87,6 @@ class CockRecActivity : AppCompatActivity() {
             }
         })
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cock_rec)
@@ -138,6 +142,5 @@ class CockRecActivity : AppCompatActivity() {
                 finish()
             }
         }
-
     }
 }

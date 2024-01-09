@@ -16,36 +16,52 @@
             android:id="@+id/log_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="2021-01-01"
             android:textSize="18sp" />
 
-        <ImageView
-            android:id="@+id/log_image"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@drawable/ic_launcher_background" />
-
-        <TextView
-            android:id="@+id/log_name"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="술 이름"
-            android:textStyle="bold"
-            android:textSize="20sp" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/log_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="술에 대한 설명 또는 레시피" />
+            <ImageView
+                android:id="@+id/log_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_launcher_background" />
 
-        <RatingBar
-            android:id="@+id/log_rating"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="5"
-            android:rating="4.5" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="16dp">
 
+                <TextView
+                    android:id="@+id/log_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="술 이름"
+                    android:textStyle="bold"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/log_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="술에 대한 설명 또는 레시피" />
+
+                <RatingBar
+                    android:id="@+id/log_rating"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:rating="4.5" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

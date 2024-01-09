@@ -13,35 +13,24 @@
         android:layout_marginTop="16dp"
         android:src="@drawable/logotext" />
     <!-- 기존 RecyclerView 정의 -->
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recyclerView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_below="@id/logoImageView"
-    android:scrollbars="vertical" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/logoImageView"
+        android:scrollbars="vertical" />
 
-    <!-- FloatingActionButton 정의 -->
-<com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/fabAddLog"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentEnd="true"
-    android:layout_margin="16dp"
-    android:src="@drawable/add"
-    app:backgroundTint="@color/colorPrimary"
-    app:fabSize="normal" />
     <!-- 새로운 FloatingActionButton 정의 -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabGoToMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/fabAddLog"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="1dp"
-        android:layout_marginEnd="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="15dp"
         android:src="@drawable/home"
         app:backgroundTint="@color/colorAccent"
         app:fabSize="normal" />
 
-    </RelativeLayout>
+</RelativeLayout>

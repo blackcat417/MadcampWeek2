@@ -17,19 +17,6 @@ class LogActivity : AppCompatActivity() {
         setContentView(R.layout.activity_log)
         supportActionBar?.hide()
 
-        // FloatingActionButton 찾기
-        val fabAddLog = findViewById<FloatingActionButton>(R.id.fabAddLog)
-
-        // FloatingActionButton에 클릭 리스너 설정
-        fabAddLog.setOnClickListener {
-            // 여기에 log 추가 액티비티를 시작하는 코드 또는 다이얼로그를 표시하는 코드를 추가합니다.
-
-            // 예: AddLogActivity 시작
-            val intent = Intent(this, AddLogActivity::class.java)
-            startActivity(intent)
-
-            // 또는, 커스텀 다이얼로그나 프래그먼트를 사용하여 log 추가 인터페이스를 표시할 수 있습니다.
-        }
         // 새로운 FloatingActionButton 찾기
         val fabGoToMain = findViewById<FloatingActionButton>(R.id.fabGoToMain)
 
@@ -39,6 +26,7 @@ class LogActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+
 
         // LogActivity 내 onCreate 메서드 안
         val year = intent.getStringExtra("year") ?: "Unknown"
@@ -54,7 +42,7 @@ class LogActivity : AppCompatActivity() {
         logs.add(newLog)
 
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = GridLayoutManager(this, 2)  // 2개의 컬럼으로 표시
+        recyclerView.layoutManager = GridLayoutManager(this, 1)  // 2개의 컬럼으로 표시
 
         val imageLogs = mutableListOf<LogEntry>()
         imageLogs.add(LogEntry("2021", "01", "01", "술 이름", "술에 대한 설명", R.drawable.cocktail2)
