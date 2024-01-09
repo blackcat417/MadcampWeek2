@@ -24,11 +24,14 @@
         </activity>
         <activity android:name=".MainActivity"
                   android:exported="true"/>
+        <activity android:name=".ProfileActivity"/>
         <activity android:name=".Log.LogActivity" />
         <activity android:name=".Cock.CockRecActivity"/>
         <activity android:name=".Cock.MyCocktailActivity" />
         <activity android:name=".Cock.ListCocktailActivity" />
-        <activity android:name=".Log.AddLogActivity" />
+
+
+
 
     </application>
     <uses-permission android:name="android.permission.INTERNET" />

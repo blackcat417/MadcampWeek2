@@ -41,10 +41,10 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, ListCocktailActivity::class.java)
             startActivity(intent)
         }
-        // 로고 이미지 클릭 리스너 설정
-        /*findViewById<ImageView>(R.id.imageView2).setOnClickListener {
-            val intent = Intent(this, MyPageActivity::class.java)
+
+        findViewById<ImageView>(R.id.imageView2).setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
-        }*/
+        }
     }
 }
