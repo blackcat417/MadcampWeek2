@@ -26,4 +26,7 @@ interface ApiService {
 
     @GET("logs")
     fun logCocktails(): Call<List<LogCocktails>>
+
+    @GET("mycocktails")
+    fun MyCocktails(): Call<List<MyCocktails>>
 }
