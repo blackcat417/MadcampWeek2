@@ -76,3 +76,10 @@ data class LogCocktails(
     val logIngredient: String,
     val logRecipe: String
 )
+
+data class MyCocktails(
+    val strDrink: String,
+    val strDrinkThumb: String,
+    val strIngredients: String,
+    val strInstructions: String
+)

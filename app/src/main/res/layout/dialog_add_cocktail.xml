@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- 칵테일 이름 입력 필드 -->
+    <EditText
+        android:id="@+id/editTextCocktailName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="칵테일 이름"
+        android:inputType="text" />
+
+    <!-- 이미지 URL 입력 필드 -->
+    <EditText
+        android:id="@+id/editTextImageUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="이미지 URL"
+        android:inputType="textUri" />
+
+    <!-- 칵테일 설명 입력 필드 -->
+    <EditText
+        android:id="@+id/editTextDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="한 줄 설명"
+        android:inputType="text" />
+
+    <!-- 재료 입력 필드 -->
+    <EditText
+        android:id="@+id/editTextIngredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="재료"
+        android:inputType="text" />
+        />
+
+</LinearLayout>

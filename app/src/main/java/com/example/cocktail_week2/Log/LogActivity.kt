@@ -51,6 +51,18 @@ class LogActivity : AppCompatActivity() {
         }
 
         loadLogs()
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let { filterLogs(it) }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let { filterLogs(it) }
+                return true
+            }
+        })
     }
 
     private fun loadLogs() {
@@ -81,54 +93,13 @@ class LogActivity : AppCompatActivity() {
         })
     }
 
-}
+    private var allLogs: List<LogCocktails> = listOf()
 
-//        val imageViewCocktail: ImageView = findViewById(R.id.logoImageView)
-//        Glide.with(this)
-//            .load(imageUrl)
-//            .into(imageViewCocktail)
-//        // 로그 목록에 새 로그 추가
-//
-//        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
-//        recyclerView.layoutManager = LinearLayoutManager(this)  // 2개의 컬럼으로 표시
-//
-//        val imageLogs = mutableListOf<LogEntry>()
-//        // 로그 목록 불러오기
-//        loadImageLogs(object : LogLoadListener {
-//            override fun onLogsLoaded(logs: List<LogEntry>) {
-//                imageLogs.addAll(logs)
-//                // 새로운 항목 추가
-//                val newLog = LogEntry(drinkName, imageUrl, ingredient, instruction)
-//                imageLogs.add(newLog)
-//
-//                // RecyclerView 업데이트
-//                updateRecyclerView(imageLogs)
-//            }
-//        })
-//    }
-//
-//    // 이미지 로그 데이터를 로드하는 함수
-//    private fun loadImageLogs(listener: LogLoadListener) {
-//        apiService.getCocktailLogs().enqueue(object : Callback<List<LogEntry>> {
-//            override fun onResponse(
-//                call: Call<List<LogEntry>>,
-//                response: Response<List<LogEntry>>
-//            ) {
-//                if (response.isSuccessful) {
-//                    val logs = response.body() ?: emptyList()
-//                    listener.onLogsLoaded(logs)
-//                } else {
-//                    Log.e("LogActivity", "Error: ${response.errorBody()?.string()}")
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<List<LogEntry>>, t: Throwable) {
-//                Log.e("LogActivity", "Network error: ${t.message}")
-//            }
-//        })
-//    }
-//    interface LogLoadListener {
-//        fun onLogsLoaded(logs: List<LogEntry>)
-//    }
-//
-//}
+    private fun filterLogs(query: String) {
+        val filteredLogs = allLogs.filter {
+            it.logName.contains(query, ignoreCase = true) ||
+                    it.logIngredient.contains(query, ignoreCase = true)
+        }
+        logAdapter.updateList(filteredLogs)
+    }
+}
