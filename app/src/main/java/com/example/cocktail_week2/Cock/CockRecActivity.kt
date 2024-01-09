@@ -26,6 +26,62 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class CockRecActivity : AppCompatActivity() {
     private lateinit var apiService: ApiService
+    private fun showRecommendationDialog(drinkName: String, ingredient: String) {
+        AlertDialog.Builder(this).apply {
+            setTitle("추천 칵테일")
+            setMessage("이름: $drinkName\n재료: $ingredient")
+            setPositiveButton("확인", null)
+        }.show()
+    }
+
+    private fun getCocktailRecommendation(
+        base: String,
+        beverage: String,
+        other: String,
+        challenge: Boolean,
+        onResult: (String?) -> Unit
+    ) {
+
+        val safeBase = if (base.isBlank()) "%" else base
+        val safeBeverage = if (beverage.isBlank()) "%" else beverage
+        val safeOther = if (other.isBlank()) "%" else other
+
+
+
+        val SelectedRec = RecommendModel(safeBase, safeBeverage, safeOther, challenge)
+
+        val call = apiService.getRecommends(SelectedRec)
+        call.enqueue(object : retrofit2.Callback<List<RecCocktails>> {
+            override fun onResponse(
+                call: Call<List<RecCocktails>>,
+                response: Response<List<RecCocktails>>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    val firstCocktail = responseBody?.firstOrNull()
+                    val drinkName = firstCocktail?.strDrink ?: "Unknown"
+                    val ingredient = firstCocktail?.strIngredient1 ?: "Unknown"
+
+                    if(responseBody.isNullOrEmpty()){
+                        Log.d("CocktailRecommendation","Response body is empty or null")
+                        onResult(null)
+                    }
+                    else{
+                        showRecommendationDialog(drinkName, ingredient)
+                    }
+
+                } else {
+                    Log.d("CocktailRecommendation","Response is not successful: ${response.errorBody()?.string()}")
+                    onResult(null)
+                }
+            }
+
+            override fun onFailure(call: Call<List<RecCocktails>>, t: Throwable) {
+                Log.d("CocktailRecommendation","Request failed: ${t.message}")
+                onResult(null)
+            }
+        })
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,11 +102,11 @@ class CockRecActivity : AppCompatActivity() {
 
         // 스피너에 데이터 설정 (예시)
         // 실제 앱에서는 데이터베이스 또는 API에서 가져오거나 정적 배열을 사용할 수 있습니다.
-
         // 스피너 데이터 설정 (실제 앱에서는 서버 또는 로컬 데이터를 사용하세요)
-        val bases = arrayOf(" ", "Vodka", "Gin", "Rum", "Whisky", "Wine", "Tequila", "Kalua", "Brandy")
-        val beverages = arrayOf(" ","Juice", "Soft Drink", "Milk", "Coffee", "Water")
-        val others = arrayOf(" ","Egg", "Lime", "Lemon", "Cream", "Sugar", "Salt", "Olive")
+        val bases =
+            arrayOf("", "Vodka", "Gin", "Rum", "Whisky", "Wine", "Tequila", "Kalua", "Brandy")
+        val beverages = arrayOf("", "Juice", "Soft Drink", "Milk", "Coffee", "Water")
+        val others = arrayOf("", "Egg", "Lime", "Lemon", "Cream", "Sugar", "Salt", "Olive")
 
         spinnerBase.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, bases)
@@ -68,88 +124,20 @@ class CockRecActivity : AppCompatActivity() {
 
             // 서버에서 칵테일 추천 받기
             getCocktailRecommendation(base, beverage, other, challenge) { recommendedCocktail ->
-                recommendedCocktail?.let { showRecommendationDialog(it) }
-                    ?: Toast.makeText(this, "${base}, ${beverage}, ${other},추천 칵테일을 찾을 수 없습니다.", Toast.LENGTH_LONG).show()
+                if (recommendedCocktail == null) {
+                    Toast.makeText(
+                        this,
+                        "${base}, ${beverage}, ${other},추천 칵테일을 찾을 수 없습니다.",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
-        // FloatingActionButton 설정
-        findViewById<FloatingActionButton>(R.id.fabGoToMain).setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+            // FloatingActionButton 설정
+            findViewById<FloatingActionButton>(R.id.fabGoToMain).setOnClickListener {
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
         }
-    }
 
-    private fun getCocktailRecommendation(
-        base: String,
-        beverage: String,
-        other: String,
-        challenge: Boolean,
-        onResult: (String?) -> Unit
-    ) {
-
-        val SelectedRec = RecommendModel(base, beverage, other)
-
-        if (challenge) {
-
-            // 도전 모드: 무작위로 칵테일 추천
-            apiService.getCocktails(base, beverage, other)
-                .enqueue(object : Callback<List<Cocktail>> {
-                    override fun onResponse(
-                        call: Call<List<Cocktail>>,
-                        response: Response<List<Cocktail>>
-                    ) {
-                        val filteredCocktails = response.body() ?: emptyList()
-                        val recommendedCocktail =
-                            if (filteredCocktails.isNotEmpty()) filteredCocktails.random().strDrink
-                            else null // Return null if the list is empty
-                        onResult(recommendedCocktail)
-                        }
-
-                    override fun onFailure(call: Call<List<Cocktail>>, t: Throwable) {
-                        // 네트워크 에러 처리
-                        onResult(null)
-                    }
-                })
-        } else {
-
-            // 일반 모드: 첫 번째 칵테일 추천
-            apiService.getRecommends(SelectedRec)
-                .enqueue(object : Callback<List<RecCocktails>> {
-                    override fun onResponse(
-                        call: Call<List<RecCocktails>>,
-                        response: Response<List<RecCocktails>>
-                    ) {
-                        if (response.isSuccessful) {
-                            // 성공적인 응답 처리
-                            val filteredCocktails = response.body() ?: emptyList()
-                            val recommendedCocktail =
-                                if (filteredCocktails.isNotEmpty()) filteredCocktails.first().recDrink
-                                else null // 리스트가 비어있을 경우 null 반환
-                            onResult(recommendedCocktail)
-                        } else {
-                            // 실패한 응답 처리
-                            onResult(null)
-                            // 로그 또는 사용자에게 오류 메시지 표시
-                            Log.e("API Error", "Response Code: " + response.code())
-                        }
-                    }
-
-                    override fun onFailure(call: Call<List<RecCocktails>>, t: Throwable) {
-                        // 네트워크 에러 처리
-                        onResult(null)
-                        // 로그 또는 사용자에게 오류 메시지 표시
-                        Log.e("API Error", "Network Error", t)
-                    }
-
-                })
-        }
-    }
-
-    private fun showRecommendationDialog(recommendedCocktail: String) {
-        AlertDialog.Builder(this).apply {
-            setTitle("추천 칵테일")
-            setMessage(recommendedCocktail)
-            setPositiveButton("확인", null)
-        }.show()
     }
 }

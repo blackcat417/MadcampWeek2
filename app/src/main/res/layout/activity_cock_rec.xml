@@ -125,14 +125,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:text="도전하기" />
+            android:text="Non Alchoholic" />
 
-        <Switch
-            android:id="@+id/alchoholYN"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:text="Alchohol알코올" />
     </LinearLayout>
 
     <!-- 추천받기 버튼을 포함하는 LinearLayout -->
