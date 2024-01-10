@@ -22,6 +22,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="UserID"
+            android:textColor="@color/white"
             android:textSize="20dp" />
 
         <Button
@@ -29,6 +30,7 @@
             android:layout_width="60dp"
             android:layout_marginRight="20dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:background="@drawable/rounded_button"
             android:text="Edit" />
     </LinearLayout>
@@ -53,6 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/radarChart"
         android:textStyle="bold"
+        android:textColor="@color/white"
         android:textSize="20dp"
         android:layout_centerHorizontal="true"
         android:text="Cocktails Count: 0"/>

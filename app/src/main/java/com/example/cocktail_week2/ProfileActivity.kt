@@ -121,6 +121,7 @@ private fun setupRadarChart(radarChart: RadarChart, tastePreferences: List<Float
     val radarData = RadarData(radarDataSet)
 
     radarChart.data = radarData
+    radarChart.animateXY(1000, 1000)
     configureRadarChartAppearance(radarChart)
     configureRadarDataSetAppearance(radarDataSet)
     radarChart.invalidate() // Refresh the chart
@@ -129,33 +130,37 @@ private fun setupRadarChart(radarChart: RadarChart, tastePreferences: List<Float
 
 private fun configureRadarChartAppearance(radarChart: RadarChart) {
     radarChart.description.isEnabled = false
-    radarChart.webLineWidth = 1f
-    radarChart.webColor = Color.LTGRAY
-    radarChart.webLineWidthInner = 1f
-    radarChart.webColorInner = Color.LTGRAY
-    radarChart.webAlpha = 100
+    radarChart.webLineWidth = 3f
+    radarChart.webColor = Color.WHITE
+    radarChart.webLineWidthInner = 3f
+    radarChart.webColorInner = Color.WHITE
+    radarChart.webAlpha = 200
 
     val xAxis = radarChart.xAxis
-    xAxis.textSize = 9f
+    xAxis.textSize = 10f
+    xAxis.textColor=Color.WHITE
     xAxis.yOffset = 0f
     xAxis.xOffset = 0f
     xAxis.valueFormatter = IndexAxisValueFormatter(listOf("Dry", "Sour", "Sweet", "Smooth", "Hot"))
 
     val yAxis = radarChart.yAxis
     yAxis.setLabelCount(5, true)
-    yAxis.textSize = 9f
+    xAxis.textColor=Color.WHITE
+    yAxis.textSize = 10f
     yAxis.axisMinimum = 0f
     yAxis.axisMaximum = 5f
 }
 
 private fun configureRadarDataSetAppearance(radarDataSet: RadarDataSet) {
-    radarDataSet.color = Color.rgb(103, 110, 129)
-    radarDataSet.fillColor = Color.rgb(103, 110, 129)
-    radarDataSet.setDrawFilled(true)
+    radarDataSet.color = Color.rgb(255, 255, 255)
     radarDataSet.fillAlpha = 180
     radarDataSet.lineWidth = 2f
     radarDataSet.isDrawHighlightCircleEnabled = true
     radarDataSet.setDrawHighlightIndicators(false)
+    // 밝은 파란색 채우기 색상 설정
+    val fillColor = Color.parseColor("#ADD8E6") // 밝은 파란색
+    radarDataSet.fillColor = fillColor
+    radarDataSet.setDrawFilled(true)
 }
 
 
