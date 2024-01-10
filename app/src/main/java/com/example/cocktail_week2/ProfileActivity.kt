@@ -56,8 +56,8 @@ class ProfileActivity : AppCompatActivity() {
 
             val preferences = listOf(dryPreference, sourPreference, sweetPreference, smoothPreference, hotPreference)
             setupRadarChart(findViewById(R.id.radarChart), preferences)
-
-            loadUserInfo(dryPreference,sourPreference,sweetPreference,smoothPreference,hotPreference)
+            val loadusif=User(myClass.userID,dryPreference,sourPreference,sweetPreference,smoothPreference,hotPreference)
+            loadUserInfo(loadusif)
 
             dialog.dismiss()
         }
@@ -65,23 +65,22 @@ class ProfileActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun loadUserInfo(pref1:Float, pref2:Float, pref3:Float, pref4:Float, pref5:Float) {
-
-        val profEditUser=User(myClass.userID, pref1,pref2,pref3,pref4,pref5)
-        apiService.editUserInfo(profEditUser).enqueue(object : Callback<Flavors> {
+    private fun loadUserInfo(userinfo:User) {
+        apiService.editUserInfo(userinfo).enqueue(object : Callback<Flavors> {
             override fun onResponse(
                 call: Call<Flavors>,
                 response: Response<Flavors>
             ) {
                 if (response.isSuccessful) {
-                    val user = response.body()
-                    user?.let {
-                        // 사용자 선호도 정보 사용
-
-                        val flavorsList: List<Float> = Gson().fromJson(response.body()?.toString(), object : TypeToken<List<Float>>() {}.type)
-                        val preferences = flavorsList.toList()
+                    val userPreferences = response.body()
+                    val preferences = listOf(
+                        userPreferences?.flavor1 ?: 0f,
+                        userPreferences?.flavor2 ?: 0f,
+                        userPreferences?.flavor3 ?: 0f,
+                        userPreferences?.flavor4 ?: 0f,
+                        userPreferences?.flavor5 ?: 0f
+                    )
                         setupRadarChart(findViewById(R.id.radarChart), preferences)
-                    }
                 } else {
                     // Handle error
                 }
@@ -107,6 +106,9 @@ class ProfileActivity : AppCompatActivity() {
 
         val defaultPreferences = listOf(0f, 0f, 0f, 0f, 0f) // Replace with saved preferences if available
         setupRadarChart(radarChart, defaultPreferences)
+        val default= User(myClass.userID, defaultPreferences[0],defaultPreferences[1],defaultPreferences[2],defaultPreferences[3],defaultPreferences[4] )
+
+        loadUserInfo(default)
 
         editProfileButton.setOnClickListener {
             showTastePreferencesDialog()
