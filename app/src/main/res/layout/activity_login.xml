@@ -47,9 +47,9 @@
     <ImageView
         android:id="@+id/kakaoLoginButton"
         android:layout_width="100dp"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:layout_below="@id/loginButton"
-        android:layout_marginLeft="155dp"
+        android:layout_marginLeft="130dp"
         android:src="@drawable/kakao_login_medium_narrow" />
 
     <Button
