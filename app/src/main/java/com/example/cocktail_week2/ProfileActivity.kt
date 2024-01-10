@@ -1,9 +1,11 @@
 package com.example.cocktail_week2
 
+import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.github.mikephil.charting.charts.RadarChart
@@ -16,6 +18,37 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 
 class ProfileActivity : AppCompatActivity() {
 
+
+    private fun showTastePreferencesDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_taste_preferences, null)
+        val dialog = AlertDialog.Builder(this)
+            .setTitle("Set Your Taste Preferences")
+            .setView(dialogView)
+            .create()
+
+        val sliderDry = dialogView.findViewById<SeekBar>(R.id.sliderDry)
+        val sliderSour = dialogView.findViewById<SeekBar>(R.id.sliderSour)
+        val sliderSweet = dialogView.findViewById<SeekBar>(R.id.sliderSweet)
+        val sliderSmooth = dialogView.findViewById<SeekBar>(R.id.sliderSmooth)
+        val sliderHot = dialogView.findViewById<SeekBar>(R.id.sliderHot)
+        // Initialize and set up other sliders (sour, sweet, smooth, hot)
+        // ...
+
+        dialogView.findViewById<Button>(R.id.btnConfirm).setOnClickListener {
+            val dryPreference = sliderDry.progress.toFloat()
+            val sourPreference = sliderSour.progress.toFloat()
+            val sweetPreference = sliderSweet.progress.toFloat()
+            val smoothPreference = sliderSmooth.progress.toFloat()
+            val hotPreference = sliderHot.progress.toFloat()
+
+            val preferences = listOf(dryPreference, sourPreference, sweetPreference, smoothPreference, hotPreference)
+            setupRadarChart(findViewById(R.id.radarChart), preferences)
+
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
@@ -27,18 +60,18 @@ class ProfileActivity : AppCompatActivity() {
         val profileImageView = findViewById<ImageView>(R.id.ivProfileImage)
         val cocktailCountTextView = findViewById<TextView>(R.id.tvCocktailCount)
         val radarChart = findViewById<RadarChart>(R.id.radarChart)
+
+        val defaultPreferences = listOf(0f, 0f, 0f, 0f, 0f) // Replace with saved preferences if available
+        setupRadarChart(radarChart, defaultPreferences)
+
         editProfileButton.setOnClickListener {
-            // Handle edit profile action
+            showTastePreferencesDialog()
         }
-
-        setupRadarChart(radarChart)
     }
 
     }
 
-    private fun setupRadarChart(radarChart: RadarChart) {
-        val tastePreferences = listOf(3f, 4f, 2f, 5f, 3f) // Example ratings: dry, sour, sweet, smooth, hot
-
+    private fun setupRadarChart(radarChart: RadarChart, tastePreferences: List<Float>) {
         val entries = tastePreferences.map { RadarEntry(it) }
         val radarDataSet = RadarDataSet(entries, "Taste Preferences")
         val radarData = RadarData(radarDataSet)
@@ -46,9 +79,11 @@ class ProfileActivity : AppCompatActivity() {
         radarChart.data = radarData
         configureRadarChartAppearance(radarChart)
         configureRadarDataSetAppearance(radarDataSet)
+        radarChart.invalidate() // Refresh the chart
     }
 
-    private fun configureRadarChartAppearance(radarChart: RadarChart) {
+
+private fun configureRadarChartAppearance(radarChart: RadarChart) {
         radarChart.description.isEnabled = false
         radarChart.webLineWidth = 1f
         radarChart.webColor = Color.LTGRAY
