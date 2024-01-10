@@ -13,11 +13,13 @@ import com.example.cocktail_week2.RegisterResult
 import com.example.cocktail_week2.RetroInterface
 import com.example.cocktail_week2.User
 import com.example.cocktail_week2.databinding.ActivityLoginBinding
+import com.example.cocktail_week2.myClass
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityLoginBinding
     val api = RetroInterface.create()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,6 +77,7 @@ class LoginActivity : AppCompatActivity() {
                     override fun onResponse(call: Call<LoginResult>, response: Response<LoginResult>) {
                         val user_uid = response.body()?.UID ?: return
                         if(user_uid != -1) {
+                            myClass.userID = binding.inputID.text.toString()
                             Toast.makeText(applicationContext, "로그인 성공", Toast.LENGTH_SHORT).show()
                             val intent = Intent(this@LoginActivity, MainActivity::class.java)
                             intent.putExtra("id", binding.inputID.text.toString())

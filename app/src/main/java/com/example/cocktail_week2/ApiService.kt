@@ -32,4 +32,7 @@ interface ApiService {
 
     @POST("addMyCocktails")
     fun addMyCocktails(@Body request: AddMy): Call<ResponseBody>
+
+    @POST("userInfo")
+    fun editUserInfo(@Body request: User): Call<Flavors>
 }

@@ -22,10 +22,26 @@ data class LoginResult(
 )
 
 data class User(
-    val UID: Int,
     val id: String,
-    val password: String
-): Serializable
+    val flavor1: Float,
+    val flavor2: Float,
+    val flavor3: Float,
+    val flavor4: Float,
+    val flavor5: Float
+)
+data class Flavors(
+    val flavor1: Float,
+    val flavor2: Float,
+    val flavor3: Float,
+    val flavor4: Float,
+    val flavor5: Float
+)
+
+class myClass{
+    companion object {
+        var userID: String = ""
+    }
+}
 
 data class Post(
     val id: Int,
