@@ -1,6 +1,7 @@
 package com.example.cocktail_week2
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
@@ -130,6 +131,13 @@ class ProfileActivity : AppCompatActivity() {
 
         loadUserInfo(myClass.userID)
 
+        profileImageView.setOnClickListener {
+            // MainActivity로 이동하는 인텐트 생성
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         editProfileButton.setOnClickListener {
             showTastePreferencesDialog()
         }
@@ -167,6 +175,7 @@ private fun configureRadarChartAppearance(radarChart: RadarChart) {
     val yAxis = radarChart.yAxis
     yAxis.setLabelCount(5, true)
     xAxis.textColor=Color.WHITE
+    yAxis.textColor=Color.GRAY
     yAxis.textSize = 20f
     yAxis.axisMinimum = 0f
     yAxis.axisMaximum = 5f
