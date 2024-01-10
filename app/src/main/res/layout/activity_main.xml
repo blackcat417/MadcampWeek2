@@ -54,7 +54,7 @@
         android:layout_height="120dp"
         android:layout_marginTop="10dp"
         android:scaleType="centerCrop"
-        android:text="Cocktail\n추천하기"
+        android:text="내가 만든\nCocktail"
         android:textSize="20dp"
         android:textColor="#243050"
         android:background="@drawable/rounded_button"

@@ -25,8 +25,8 @@ class LogAdapter(private var logList: List<LogCocktails>) : RecyclerView.Adapter
         val cocktail = logList[position]
         Glide.with(holder.imageView.context).load(cocktail.logImg).into(holder.imageView)
         holder.nameTextView.text = cocktail.logName
-        holder.typeTextView.text = cocktail.logIngredient
-        holder.descriptionTextView.text = cocktail.logRecipe
+        holder.typeTextView.text = cocktail.logTime
+        holder.descriptionTextView.text = cocktail.logRating.toString()
     }
     override fun getItemCount() = logList.size
 

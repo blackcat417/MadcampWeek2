@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.Spinner
 import android.widget.Switch
 import android.widget.TextView
@@ -14,21 +15,21 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.example.cocktail_week2.Cocktail
 import com.example.cocktail_week2.MainActivity
 import com.example.cocktail_week2.R
 import com.example.cocktail_week2.ApiService
 import com.example.cocktail_week2.LogEntry
-import com.example.cocktail_week2.LoginModel
 import com.example.cocktail_week2.RecCocktails
 import com.example.cocktail_week2.RecommendModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class CockRecActivity : AppCompatActivity() {
     private lateinit var apiService: ApiService
@@ -38,6 +39,12 @@ class CockRecActivity : AppCompatActivity() {
         val nameView = dialogView.findViewById<TextView>(R.id.textViewCocktailName)
         val ingredientView = dialogView.findViewById<TextView>(R.id.textViewCocktailIngredient)
         val instructionView = dialogView.findViewById<TextView>(R.id.textViewCocktailInstruction)
+        val ratingBar = dialogView.findViewById<RatingBar>(R.id.ratingBar)
+
+        fun getCurrentDateTime(): String {
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+            return dateFormat.format(Date())
+        }
 
         Glide.with(this)
             .load(imageUrl)
@@ -47,12 +54,15 @@ class CockRecActivity : AppCompatActivity() {
         ingredientView.text = ingredient
         instructionView.text = instruction
 
+
+
         AlertDialog.Builder(this).apply {
             setView(dialogView)
             setPositiveButton("확인", null)
             setNeutralButton("MyLog에 추가하기") { _,_ ->
 
-                val newLog = LogEntry(drinkName, imageUrl, ingredient, instruction)
+                val rating = ratingBar.rating
+                val newLog = LogEntry(drinkName, imageUrl, ingredient, instruction, rating, timestamp = getCurrentDateTime())
                 apiService.addLogs(newLog).enqueue(object : retrofit2.Callback<ResponseBody> {
 
                     override fun onResponse(
@@ -106,6 +116,7 @@ class CockRecActivity : AppCompatActivity() {
                     val imageUrl = firstCocktail?.strDrinkThumb ?: "Unknown"
                     val ingredient = firstCocktail?.strIngredient1 ?: "Unknown"
                     val instruction = firstCocktail?.strInstructions ?: "Unknown"
+
 
                     if(responseBody.isNullOrEmpty()){
                         Log.d("CocktailRecommendation","Response body is empty or null")

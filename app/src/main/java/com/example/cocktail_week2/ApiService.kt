@@ -29,4 +29,7 @@ interface ApiService {
 
     @GET("mycocktails")
     fun MyCocktails(): Call<List<MyCocktails>>
+
+    @POST("addMyCocktails")
+    fun addMyCocktails(@Body request: AddMy): Call<ResponseBody>
 }

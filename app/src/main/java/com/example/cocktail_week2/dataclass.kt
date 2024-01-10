@@ -45,7 +45,9 @@ data class LogEntry(
     val drinkName: String,
     val imageUrl: String,
     val ingredient: String,
-    val instruction: String
+    val instruction: String,
+    val rating: Float,
+    val timestamp: String
 )
 
 // 칵테일 데이터 클래스
@@ -74,7 +76,9 @@ data class LogCocktails(
     val logName: String,
     val logImg: String,
     val logIngredient: String,
-    val logRecipe: String
+    val logRecipe: String,
+    val logRating: Float,
+    val logTime: String
 )
 
 data class MyCocktails(
@@ -82,4 +86,11 @@ data class MyCocktails(
     val strDrinkThumb: String,
     val strIngredients: String,
     val strInstructions: String
+)
+
+data class AddMy(
+    val strDrink: String,
+    val strDrinkThumb: String,
+    val strInstructions: String,
+    val strIngredients: String
 )

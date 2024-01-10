@@ -64,7 +64,6 @@ class LogActivity : AppCompatActivity() {
             }
         })
     }
-
     private fun loadLogs() {
         apiService.logCocktails().enqueue(object : Callback<List<LogCocktails>> {
             override fun onResponse(
@@ -78,7 +77,9 @@ class LogActivity : AppCompatActivity() {
                             logName = it.logName,
                             logIngredient = it.logIngredient,
                             logRecipe = it.logRecipe,
-                            logImg = it.logImg // URL 사용
+                            logImg = it.logImg, // URL 사용
+                            logRating = it.logRating,
+                            logTime = it.logTime
                         )
                     } ?: emptyList()
                     logAdapter.updateList(logCocktails)

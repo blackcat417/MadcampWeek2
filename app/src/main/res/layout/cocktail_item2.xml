@@ -27,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:textSize="20dp"
             android:text="칵테일 이름"
             android:textStyle="bold" />
 
@@ -35,6 +36,7 @@
             android:id="@+id/textViewType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="15dp"
             android:layout_marginTop="4dp"
             android:text="칵테일 종류" />
 
