@@ -1,9 +1,11 @@
 package com.example.cocktail_week2
 
+import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.github.mikephil.charting.charts.RadarChart
@@ -16,6 +18,39 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 
 class ProfileActivity : AppCompatActivity() {
 
+
+    private fun showTastePreferencesDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_taste_preferences, null)
+        val dialog = AlertDialog.Builder(this)
+            .setTitle("Set Your Taste Preferences")
+            .setView(dialogView)
+            .create()
+
+        val sliderDry = dialogView.findViewById<SeekBar>(R.id.sliderDry)
+        val sliderSour = dialogView.findViewById<SeekBar>(R.id.sliderSour)
+        val sliderSweet = dialogView.findViewById<SeekBar>(R.id.sliderSweet)
+        val sliderSmooth = dialogView.findViewById<SeekBar>(R.id.sliderSmooth)
+        val sliderHot = dialogView.findViewById<SeekBar>(R.id.sliderHot)
+        // Initialize and set up other sliders (sour, sweet, smooth, hot)
+        // ...
+
+        dialogView.findViewById<Button>(R.id.btnConfirm).setOnClickListener {
+            val dryPreference = sliderDry.progress
+            val sourPreference = sliderSour.progress
+            val sweetPreference = sliderSweet.progress
+            val smoothPreference = sliderSmooth.progress
+            val hotPreference = sliderHot.progress
+            // Get values from other sliders
+            // ...
+
+            // TODO: Send these preferences to your server
+            // ...
+
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
@@ -28,7 +63,7 @@ class ProfileActivity : AppCompatActivity() {
         val cocktailCountTextView = findViewById<TextView>(R.id.tvCocktailCount)
         val radarChart = findViewById<RadarChart>(R.id.radarChart)
         editProfileButton.setOnClickListener {
-            // Handle edit profile action
+            showTastePreferencesDialog()
         }
 
         setupRadarChart(radarChart)
