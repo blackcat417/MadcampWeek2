@@ -15,18 +15,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginLeft="20dp"
-            android:textSize="20dp"
             android:text="UserID"
             android:gravity="center_vertical"/>
 
         <Button
             android:id="@+id/btnEditProfile"
-            android:layout_width="60dp"
-            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_button"
-            android:text="Edit"/>
+            android:text="Edit Profile"/>
     </LinearLayout>
 
     <!-- Profile Image -->

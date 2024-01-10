@@ -69,49 +69,49 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
-    }
+}
 
-    private fun setupRadarChart(radarChart: RadarChart, tastePreferences: List<Float>) {
-        val entries = tastePreferences.map { RadarEntry(it) }
-        val radarDataSet = RadarDataSet(entries, "Taste Preferences")
-        val radarData = RadarData(radarDataSet)
+private fun setupRadarChart(radarChart: RadarChart, tastePreferences: List<Float>) {
+    val entries = tastePreferences.map { RadarEntry(it) }
+    val radarDataSet = RadarDataSet(entries, "Taste Preferences")
+    val radarData = RadarData(radarDataSet)
 
-        radarChart.data = radarData
-        configureRadarChartAppearance(radarChart)
-        configureRadarDataSetAppearance(radarDataSet)
-        radarChart.invalidate() // Refresh the chart
-    }
+    radarChart.data = radarData
+    configureRadarChartAppearance(radarChart)
+    configureRadarDataSetAppearance(radarDataSet)
+    radarChart.invalidate() // Refresh the chart
+}
 
 
 private fun configureRadarChartAppearance(radarChart: RadarChart) {
-        radarChart.description.isEnabled = false
-        radarChart.webLineWidth = 1f
-        radarChart.webColor = Color.LTGRAY
-        radarChart.webLineWidthInner = 1f
-        radarChart.webColorInner = Color.LTGRAY
-        radarChart.webAlpha = 100
+    radarChart.description.isEnabled = false
+    radarChart.webLineWidth = 1f
+    radarChart.webColor = Color.LTGRAY
+    radarChart.webLineWidthInner = 1f
+    radarChart.webColorInner = Color.LTGRAY
+    radarChart.webAlpha = 100
 
-        val xAxis = radarChart.xAxis
-        xAxis.textSize = 9f
-        xAxis.yOffset = 0f
-        xAxis.xOffset = 0f
-        xAxis.valueFormatter = IndexAxisValueFormatter(listOf("Dry", "Sour", "Sweet", "Smooth", "Hot"))
+    val xAxis = radarChart.xAxis
+    xAxis.textSize = 9f
+    xAxis.yOffset = 0f
+    xAxis.xOffset = 0f
+    xAxis.valueFormatter = IndexAxisValueFormatter(listOf("Dry", "Sour", "Sweet", "Smooth", "Hot"))
 
-        val yAxis = radarChart.yAxis
-        yAxis.setLabelCount(5, true)
-        yAxis.textSize = 9f
-        yAxis.axisMinimum = 0f
-        yAxis.axisMaximum = 5f
-    }
+    val yAxis = radarChart.yAxis
+    yAxis.setLabelCount(5, true)
+    yAxis.textSize = 9f
+    yAxis.axisMinimum = 0f
+    yAxis.axisMaximum = 5f
+}
 
-    private fun configureRadarDataSetAppearance(radarDataSet: RadarDataSet) {
-        radarDataSet.color = Color.rgb(103, 110, 129)
-        radarDataSet.fillColor = Color.rgb(103, 110, 129)
-        radarDataSet.setDrawFilled(true)
-        radarDataSet.fillAlpha = 180
-        radarDataSet.lineWidth = 2f
-        radarDataSet.isDrawHighlightCircleEnabled = true
-        radarDataSet.setDrawHighlightIndicators(false)
-    }
+private fun configureRadarDataSetAppearance(radarDataSet: RadarDataSet) {
+    radarDataSet.color = Color.rgb(103, 110, 129)
+    radarDataSet.fillColor = Color.rgb(103, 110, 129)
+    radarDataSet.setDrawFilled(true)
+    radarDataSet.fillAlpha = 180
+    radarDataSet.lineWidth = 2f
+    radarDataSet.isDrawHighlightCircleEnabled = true
+    radarDataSet.setDrawHighlightIndicators(false)
+}
 
-    // ... other functions ...
+// … other functions …
