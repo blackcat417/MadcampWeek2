@@ -48,14 +48,4 @@
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_marginTop="150dp"/>
-    <TextView
-        android:id="@+id/tvCocktailCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/radarChart"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:layout_centerHorizontal="true"
-        android:text="Cocktails Count: 0"/>
 </RelativeLayout>

@@ -120,7 +120,6 @@ class ProfileActivity : AppCompatActivity() {
         var userIdTextView = findViewById<TextView>(R.id.topBar)
         val editProfileButton = findViewById<Button>(R.id.btnEditProfile)
         val profileImageView = findViewById<ImageView>(R.id.ivProfileImage)
-        val cocktailCountTextView = findViewById<TextView>(R.id.tvCocktailCount)
         val radarChart = findViewById<RadarChart>(R.id.radarChart)
 
         userIdTextView.text=myClass.userID
