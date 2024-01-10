@@ -35,16 +35,14 @@ class ProfileActivity : AppCompatActivity() {
         // ...
 
         dialogView.findViewById<Button>(R.id.btnConfirm).setOnClickListener {
-            val dryPreference = sliderDry.progress
-            val sourPreference = sliderSour.progress
-            val sweetPreference = sliderSweet.progress
-            val smoothPreference = sliderSmooth.progress
-            val hotPreference = sliderHot.progress
-            // Get values from other sliders
-            // ...
+            val dryPreference = sliderDry.progress.toFloat()
+            val sourPreference = sliderSour.progress.toFloat()
+            val sweetPreference = sliderSweet.progress.toFloat()
+            val smoothPreference = sliderSmooth.progress.toFloat()
+            val hotPreference = sliderHot.progress.toFloat()
 
-            // TODO: Send these preferences to your server
-            // ...
+            val preferences = listOf(dryPreference, sourPreference, sweetPreference, smoothPreference, hotPreference)
+            setupRadarChart(findViewById(R.id.radarChart), preferences)
 
             dialog.dismiss()
         }
@@ -62,18 +60,18 @@ class ProfileActivity : AppCompatActivity() {
         val profileImageView = findViewById<ImageView>(R.id.ivProfileImage)
         val cocktailCountTextView = findViewById<TextView>(R.id.tvCocktailCount)
         val radarChart = findViewById<RadarChart>(R.id.radarChart)
+
+        val defaultPreferences = listOf(0f, 0f, 0f, 0f, 0f) // Replace with saved preferences if available
+        setupRadarChart(radarChart, defaultPreferences)
+
         editProfileButton.setOnClickListener {
             showTastePreferencesDialog()
         }
-
-        setupRadarChart(radarChart)
     }
 
     }
 
-    private fun setupRadarChart(radarChart: RadarChart) {
-        val tastePreferences = listOf(3f, 4f, 2f, 5f, 3f) // Example ratings: dry, sour, sweet, smooth, hot
-
+    private fun setupRadarChart(radarChart: RadarChart, tastePreferences: List<Float>) {
         val entries = tastePreferences.map { RadarEntry(it) }
         val radarDataSet = RadarDataSet(entries, "Taste Preferences")
         val radarData = RadarData(radarDataSet)
@@ -81,9 +79,11 @@ class ProfileActivity : AppCompatActivity() {
         radarChart.data = radarData
         configureRadarChartAppearance(radarChart)
         configureRadarDataSetAppearance(radarDataSet)
+        radarChart.invalidate() // Refresh the chart
     }
 
-    private fun configureRadarChartAppearance(radarChart: RadarChart) {
+
+private fun configureRadarChartAppearance(radarChart: RadarChart) {
         radarChart.description.isEnabled = false
         radarChart.webLineWidth = 1f
         radarChart.webColor = Color.LTGRAY
