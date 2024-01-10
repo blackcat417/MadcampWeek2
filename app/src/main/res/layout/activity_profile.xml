@@ -6,10 +6,11 @@
     <!-- Top Bar -->
 
     <!-- Profile Image -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
         android:orientation="horizontal"
         android:padding="8dp">
 
@@ -37,7 +38,7 @@
 
     <ImageView
         android:id="@+id/ivProfileImage"
-        android:layout_width="200dp"
+        android:layout_width="150dp"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
         android:layout_centerHorizontal="true"
@@ -46,9 +47,8 @@
     <com.github.mikephil.charting.charts.RadarChart
         android:id="@+id/radarChart"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_below="@id/ivProfileImage"
-        android:layout_marginTop="16dp"/>
+        android:layout_height="400dp"
+        android:layout_marginTop="150dp"/>
     <TextView
         android:id="@+id/tvCocktailCount"
         android:layout_width="wrap_content"

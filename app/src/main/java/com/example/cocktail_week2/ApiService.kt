@@ -34,5 +34,8 @@ interface ApiService {
     fun addMyCocktails(@Body request: AddMy): Call<ResponseBody>
 
     @POST("userInfo")
-    fun editUserInfo(@Body request: User): Call<Flavors>
+    fun editUserInfo(@Body request: User): Call<ResponseBody>
+
+    @GET("preferences")
+    fun getUserPreferences(@Query("userId") userId: String): Call<Flavors>
 }
