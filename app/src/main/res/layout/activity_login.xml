@@ -44,6 +44,14 @@
         android:layout_below="@id/inputID"/>
 
     <!-- 회원가입 버튼 -->
+    <ImageView
+        android:id="@+id/kakaoLoginButton"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:layout_below="@id/loginButton"
+        android:layout_marginLeft="155dp"
+        android:src="@drawable/kakao_login_medium_narrow" />
+
     <Button
         android:id="@+id/registerButton"
         android:layout_width="wrap_content"
